@@ -1,0 +1,85 @@
+version: '11.0'
+
+services:
+  app:
+    build: .
+    container_name: ipmanager_app
+    restart: always
+    expose:
+      - "8000"
+    volumes:
+      - /files:/app/files
+    env_file:
+      - .env
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    networks:
+      - my_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    
+  nginx:
+    image: nginx:latest
+    container_name: ipmanager_nginx
+    restart: always
+    ports:
+      - "8080:80"
+      - "8000:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./certs:/etc/nginx/certs:ro
+    depends_on:
+      app:
+        condition: service_healthy
+    networks:
+      - my_network
+    logging:
+      driver: syslog
+      options:
+        syslog-address: "udp://<IP>:<PORT>"
+        tag: "ipmanager_nginx"
+    
+  db:
+    image: postgres:15
+    container_name: ipmanager_db
+    restart: always
+    environment:
+      POSTGRES_USER: ipmanager
+      POSTGRES_PASSWORD: <YOUR_DB_PASSWORD>
+      POSTGRES_DB: ipmanager
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - my_network
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: ipmanager_redis
+    restart: always
+    networks:
+      - my_network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+networks:
+  my_network:
+    driver: bridge
+
+volumes:
+  postgres_data:

@@ -1,0 +1,80 @@
+<div class="page-header">
+    <h2>Проверка репутации IP</h2>
+</div>
+
+<div class="check-layout">
+    <div class="check-forms">
+        <div class="app-card">
+            <h3>Проверка из текстового поля</h3>
+            <form id="check-text-form">
+                <div class="form-group">
+                    <label for="ips-textarea">IP-адреса (каждый с новой строки):</label>
+                    <textarea id="ips-textarea" rows="8" placeholder="8.8.8.8"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="provider-select">Провайдер:</label>
+                    <select id="provider-select">
+                        {% for key, enabled in providers.items() %}{% if enabled %}
+                        <option value="{{ key }}">{{ key|capitalize }}</option>
+                        {% endif %}{% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="threshold-input">Порог для автобана (%):</label>
+                    <input type="number" id="threshold-input" value="50" min="0" max="100">
+                </div>
+                <div class="form-group checkbox-group">
+                    <input type="checkbox" id="autoban-check">
+                    <label for="autoban-check">Автоматически банить при превышении порога</label>
+                </div>
+                <div class="form-group">
+                    <label for="autoban-reason">Причина автобана:</label>
+                    <input type="text" id="autoban-reason" placeholder="Auto-banned">
+                </div>
+                <button type="submit" class="btn btn-primary">Проверить</button>
+            </form>
+        </div>
+
+        <div class="app-card">
+            <h3>Проверка из файла</h3>
+            <form id="check-file-form">
+                <div class="form-group">
+                    <label for="file-input">Файл:</label>
+                    <input type="file" id="file-input" name="file" required>
+                </div>
+                 <div class="form-group">
+                    <label for="file-provider-select">Провайдер:</label>
+                    <select id="file-provider-select" name="provider">
+                         {% for key, enabled in providers.items() %}{% if enabled %}
+                        <option value="{{ key }}">{{ key|capitalize }}</option>
+                        {% endif %}{% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="file-threshold-input">Порог (%):</label>
+                    <input type="number" id="file-threshold-input" name="threshold_percent" value="50" min="0" max="100">
+                </div>
+                <div class="form-group checkbox-group">
+                    <input type="checkbox" id="file-autoban-check" name="ban" value="true">
+                    <label for="file-autoban-check">Автобан</label>
+                </div>
+                <div class="form-group">
+                    <label for="autoban-reason-file">Причина автобана:</label>
+                    <input type="text" id="autoban-reason-file" name="reason" placeholder="Auto-banned">
+                </div>
+                <button type="submit" class="btn">Проверить файл</button>
+            </form>
+        </div>
+    </div>
+    <div class="check-results app-card">
+        <h3>Результаты</h3>
+		<div id="results-actions" class="results-actions" style="display: none;">
+            <button id="copy-results-btn" class="btn btn-small">Копировать JSON</button>
+            <button id="download-csv-btn" class="btn btn-small">Скачать CSV</button>
+            <button id="download-json-btn" class="btn btn-small">Скачать JSON</button>
+        </div>
+        <div id="results-container">
+            <pre>Здесь будут отображены результаты проверки.</pre>
+        </div>
+    </div>
+</div>

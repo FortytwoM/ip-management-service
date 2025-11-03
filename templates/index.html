@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IP Manager</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="icon" href="/static/favicon.png">
+	
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        (function() {
+            const theme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+</head>
+<body data-initial-page="{{ page }}">
+
+    <div id="ui-container">
+        <header class="app-header">
+            <button id="sidebar-toggle-btn" class="sidebar-toggle-btn">☰</button>
+            <div class="logo">IP Manager</div>
+            <nav id="main-nav">
+                <a href="/stats" data-page="stats">Статистика</a>
+				<a href="/notes" data-page="notes">Мои заметки</a>
+                <a href="/bans" data-page="bans">Блокировки</a>
+                <a href="/exceptions" data-page="exceptions">Исключения</a>
+                
+                {% if user.role in [UserRole.EDITOR, UserRole.ADMIN] %}
+                <a href="/check" data-page="check">Проверка IP</a>
+                <a href="/playbooks" data-page="playbooks">Плейбуки</a>
+                <a href="/ad_access" data-page="ad_access">Доступ AD</a>
+                {% endif %}
+
+                {% if user.role == UserRole.ADMIN %}
+                <a href="/webhooks" data-page="webhooks">Вебхуки</a>
+                <a href="/audit" data-page="audit">Журнал аудита</a>
+				<a href="/users" data-page="users">Пользователи</a>
+                <a href="/ad_settings" data-page="ad_settings">Настройки AD</a>
+                {% endif %}
+            </nav>
+            <div class="user-menu">
+                <button id="theme-toggle" class="btn-small">🌙</button> 
+                <span class="user-role-badge {{ user.role }}">{{ user.role }}</span>
+                <span>{{ user.username }}</span>
+                <a href="/logout" class="btn-logout">Выйти</a>
+            </div>
+        </header>
+
+        <main id="app-content" class="content-loading">
+            </main>
+    </div>
+
+    <div id="sidebar-overlay"></div>
+    <div id="modal-outlet"></div>
+    <div id="toast-outlet"></div>
+    
+    <script src="/static/vendor/showdown.min.js"></script>
+
+    <script type="module" src="/static/js/main.js"></script>
+</body>
+</html>

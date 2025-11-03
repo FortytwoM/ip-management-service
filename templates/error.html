@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Error {{ status_code }}</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; padding: 40px; }
+        h1 { font-size: 48px; color: #d9534f; }
+        p { font-size: 18px; color: #555; }
+        a { color: #0275d8; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <h1>Error {{ status_code }}</h1>
+    <p>{{ detail }}</p>
+    <a href="/">Return to Homepage</a>
+</body>
+</html>

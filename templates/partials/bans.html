@@ -1,0 +1,39 @@
+<div class="page-header">
+    <h2>Блокировки</h2>
+    <div class="header-actions">
+        <button class="btn btn-primary" id="add-ban-btn">Добавить бан</button>
+    </div>
+</div>
+
+<div class="controls-bar">
+    <div class="search-wrapper">
+        <input type="text" id="search-input" placeholder="Поиск по IP или причине...">
+    </div>
+    <div class="actions-wrapper">
+        <div class="bulk-upload-wrapper">
+            <details>
+                <summary>Загрузка из файла</summary>
+                <form class="bulk-form" id="bulk-upload-form">
+                    <input type="file" id="bulk-file" name="file" accept=".txt,.csv" required>
+                    <input type="text" id="bulk-reason" name="reason" placeholder="Общая причина (опционально)">
+                    <button type="submit" class="btn">Загрузить</button>
+                </form>
+            </details>
+        </div>
+        <div class="export-wrapper">
+            <details>
+                <summary>Экспорт</summary>
+                <div class="export-options">
+                    <button class="btn btn-small" id="export-nginx-btn">Nginx</button>
+                    <button class="btn btn-small" id="export-iptables-btn">Iptables</button>
+                    <button class="btn btn-small" id="export-json-btn">JSON</button>
+                </div>
+            </details>
+        </div>
+    </div>
+</div>
+
+
+<div id="table-container" class="table-container">
+    </div>
+<div id="pagination-container" class="pagination-container"></div>

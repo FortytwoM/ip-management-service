@@ -1,0 +1,39 @@
+<div class="page-header">
+    <h2>Статистика</h2>
+</div>
+
+<div class="stats-controls app-card" style="margin-bottom: 2rem;">
+    <div class="form-group">
+        <label>Показать статистику за:</label>
+        <div class="actions-wrapper">
+            <button class="btn btn-primary" data-period="day">День</button>
+            <button class="btn" data-period="week">Неделю</button>
+            <button class="btn" data-period="month">Месяц</button>
+        </div>
+    </div>
+</div>
+
+<div class="stats-summary-grid">
+    <div class="app-card stat-card">
+        <h4>Всего активных блокировок</h4>
+        <p id="total-bans-stat">...</p>
+    </div>
+    <div class="app-card stat-card">
+        <h4>Блокировок за период</h4>
+        <p id="bans-period-stat">...</p>
+    </div>
+    <div class="app-card stat-card">
+        <h4>Исключений за период</h4>
+        <p id="exceptions-period-stat">...</p>
+    </div>
+    <div class="app-card stat-card">
+        <h4>Выдано доступов за период</h4>
+        <p id="grants-period-stat">...</p>
+    </div>
+</div>
+
+<div class="chart-container" style="margin-top: 2rem;">
+    <h4 style="position: absolute; top: 1.5rem; left: 2rem; margin: 0; font-weight: 600;"></h4>
+    <div class="loader" id="chart-loader" style="display: none;"></div>
+    <canvas id="bans-chart-canvas"></canvas>
+</div>

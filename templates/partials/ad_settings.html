@@ -1,0 +1,33 @@
+<div class="page-header">
+    <h2>Настройки Active Directory</h2>
+</div>
+
+<div class="app-card">
+    <h3>Домены</h3>
+    <p>Настройте подключения к доменам Active Directory.</p>
+    <div id="domains-list" class="table-container"></div>
+    <br>
+    <button class="btn btn-primary" id="add-domain-btn">Добавить домен</button>
+</div>
+
+<br>
+
+<div class="app-card">
+    <h3>Управляемые группы</h3>
+    <p>Выберите группы из настроенных доменов, которые будут доступны для выдачи доступов. Вы также можете включить для них автоматическую очистку.</p>
+    <div class="form-group">
+        <label for="managed-group-domain-select">Домен</label>
+        <select id="managed-group-domain-select">
+            <option value="">-- Сначала выберите домен --</option>
+        </select>
+    </div>
+    <div id="group-management-area" style="display:none;">
+        <div class="form-group">
+            <label for="group-search-input">Поиск группы для добавления</label>
+            <input type="text" id="group-search-input" placeholder="Введите название группы...">
+            <div id="group-search-results"></div>
+        </div>
+        <h4>Текущие управляемые группы:</h4>
+        <div id="managed-groups-container"></div>
+    </div>
+</div>

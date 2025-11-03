@@ -1,0 +1,26 @@
+<div class="page-header">
+    <h2>Исключения</h2>
+    <div class="header-actions">
+        <button class="btn btn-primary" id="add-exc-btn">Добавить исключение</button>
+    </div>
+</div>
+
+<div class="controls-bar">
+    <div class="search-wrapper">
+        <input type="text" id="search-input" placeholder="Поиск по IP/CIDR или причине...">
+    </div>
+     <div class="bulk-upload-wrapper">
+        <details>
+            <summary>Загрузка из файла</summary>
+            <form class="bulk-form" id="bulk-upload-form">
+                <input type="file" id="bulk-file" name="file" accept=".txt,.csv" required>
+                <input type="text" id="bulk-reason" name="reason" placeholder="Общая причина (опционально)">
+                <button type="submit" class="btn">Загрузить</button>
+            </form>
+        </details>
+    </div>
+</div>
+
+<div id="table-container" class="table-container">
+    </div>
+<div id="pagination-container" class="pagination-container"></div>
